@@ -1,0 +1,14 @@
+[project]
+name = "my-knowledge-base"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "chromadb>=1.5.9",
+    "fastapi>=0.165.0",
+    "ollama>=0.6.3",
+    "pypdf>=7.1.1",
+    "python-multipart>=0.0.34",
+    "uvicorn>=0.54.0",
+]
