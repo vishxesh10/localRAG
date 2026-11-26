@@ -5,36 +5,35 @@ from app.rag import answer_question, build_knowledge_base
 
 router = APIRouter()
 
-# Uploads folder
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 
 
 @router.get("/")
 def home():
-    return {"status": "Server chal raha hai!"}
+    return {"status": "Server is running"}
 
 
 @router.get("/ask")
 def ask(question: str = "What is RAG?"):
-    """Sawal puchne ke liye endpoint"""
+    """Endpoint to answer questions from the knowledge base."""
     ans = answer_question(question)
     return {"question": question, "answer": ans}
 
 
 @router.post("/upload")
 def upload_pdf(file: UploadFile = File(...)):
-    """PDF file receive karke read aur index karta hai"""
+    """Receives, saves, and indexes an uploaded PDF document."""
     file_path = UPLOAD_DIR / file.filename
 
-    # File ko save karo
+    # Save uploaded file to disk
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
-    # PDF se database build karo
+    # Process and index document
     total_chunks = build_knowledge_base(str(file_path))
 
     return {
-        "message": f"{file.filename} uploaded and processed ({total_chunks} chunks)!",
+        "message": f"{file.filename} uploaded and processed ({total_chunks} chunks).",
         "filename": file.filename,
     }

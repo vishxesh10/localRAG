@@ -1,12 +1,14 @@
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
-# Project paths
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 DB_PATH = str(BASE_DIR / "db")
 DEFAULT_PDF = str(BASE_DIR / "lecture.pdf")
 
-# Model settings
-EMBEDDING_MODEL = "nomic-embed-text"
-LLM_MODEL = "llama3.2"
-OLLAMA_URL = "http://localhost:11434/api/embeddings"
-COLLECTION_NAME = "my_notes"
+# Google Gemini Configuration
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+LLM_MODEL = "gemini-2.5-flash-lite"
+COLLECTION_NAME = "instant_rag_notes"

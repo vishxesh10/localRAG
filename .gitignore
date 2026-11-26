@@ -6,6 +6,10 @@ __pycache__/
 venv/
 ENV/
 
+# IDE
+.idea/
+.vscode/
+
 # Local database & uploaded files
 db/
 uploads/
